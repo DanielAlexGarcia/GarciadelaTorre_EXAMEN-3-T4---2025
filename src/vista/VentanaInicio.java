@@ -9,9 +9,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 class Actions implements ActionListener {
@@ -39,27 +39,27 @@ class GUI extends JFrame implements ActionListener{
     GridBagConstraints gbc = new GridBagConstraints();
 
         // widgets ventana altas alumnos
-    JTextField txtNC1, txtNMS1, txtApP1, txtAPM1;
-    JButton BAgregar1, BBorrar1, BCancelar1;
+    JTextField txtNC1, txtNMS1, txtApP1, txtAPM1, TxtPosition1;
+    JButton BAgregar1, BBorrar1, BCancelar1, BFirt1, BAnterior1, BNext1, BUltimo1;
     JComboBox<Integer> CBSemestre1;
     JComboBox<String> CBCarrera1;
     JTable tabla1;
 
         // widgets ventana bajas alumnos
-    JTextField txtNC2, txtNMS2, txtApP2, txtAPM2, txtSem, txtCar;
-    JButton BBorrar2, BCancelar2, BBuscar2, BEliminar2;
+    JTextField txtNC2, txtNMS2, txtApP2, txtAPM2, txtSem, txtCar, TxtPosition2;
+    JButton BBorrar2, BCancelar2, BBuscar2, BEliminar2, BFirt2, BAnterior2, BNext2, BUltimo2;
     JTable tabla2;
 
         // widgets ventana modificasiones alumnos
-    JTextField txtNC3, txtNMS3, txtApP3, txtAPM3;
-    JButton BBorrar3, BCancelar3, BBuscar3, BGCambios3;
+    JTextField txtNC3, txtNMS3, txtApP3, txtAPM3, TxtPosition3;
+    JButton BBorrar3, BCancelar3, BBuscar3, BGCambios3, BFirt3, BAnterior3, BNext3, BUltimo3;
     JComboBox<Integer> CBSemestre3;
     JComboBox<String> CBCarrera3;
     JTable tabla3;
 
         // widgets ventana consultas alumnos
-    JTextField txtNC4, txtNMS4, txtApP4, txtAPM4;
-    JButton BBorrar4, BCancelar4, BBuscar4;
+    JTextField txtNC4, txtNMS4, txtApP4, txtAPM4, TxtPosition4;
+    JButton BBorrar4, BCancelar4, BBuscar4, BFirt4, BAnterior4, BNext4, BUltimo4;
     JComboBox<Integer> CBSemestre4;
     JComboBox<String> CBCarrera4;
     JTable tabla4;
@@ -235,11 +235,36 @@ class GUI extends JFrame implements ActionListener{
             txtCar.setEditable(false);
             agregarComponente(VentanaBajasA, txtCar, 2, 6, 1,1 );
 
+        JPanel panelBuscar2 = new JPanel(new GridBagLayout());
+
+        BFirt2 = new JButton("<<");
+        BFirt2.addActionListener(this);
+        agregarComponente(panelBuscar2, BFirt2, 1, 0, 1, 1);
+
+
+        BAnterior2 = new JButton("<");
+        BAnterior2.addActionListener(this);
+        agregarComponente(panelBuscar2, BAnterior2, 2, 0, 1,1);
+
+        TxtPosition2 = new JTextField("0");
+        TxtPosition2.addActionListener(this);
+        agregarComponente(panelBuscar2, TxtPosition2, 3,0, 1,1);
+
+        BNext2 = new JButton(">");
+        BNext2.addActionListener(this);
+        agregarComponente(panelBuscar2, BNext2, 4, 0, 1, 1);
+
+        BUltimo2 = new JButton(">>");
+        BUltimo2.addActionListener(this);
+        agregarComponente(panelBuscar2, BUltimo2, 5, 0, 1, 1);
+
+        agregarComponente(VentanaBajasA, panelBuscar2, 0,7,5,1);
+
             tabla2 = new JTable();
             tabla2.setModel(tabla1.getModel());
             JScrollPane scrol = new JScrollPane(tabla2);
             scrol.setPreferredSize(new Dimension(200,150));
-            agregarComponente(VentanaBajasA, scrol, 0,7, 5, 1);
+            agregarComponente(VentanaBajasA, scrol, 0,8, 5, 1);
 
         panel.add(VentanaBajasA);
 
@@ -309,11 +334,36 @@ class GUI extends JFrame implements ActionListener{
         CBCarrera3.addItem("ADMINISTRACION DE EMPRESAS");
         agregarComponente(VentanaModifA, CBCarrera3, 2, 6, 1,1 );
 
+        JPanel panelBuscar3 = new JPanel(new GridBagLayout());
+
+        BFirt3 = new JButton("<<");
+        BFirt3.addActionListener(this);
+        agregarComponente(panelBuscar3, BFirt3, 1, 0, 1, 1);
+
+
+        BAnterior3 = new JButton("<");
+        BAnterior3.addActionListener(this);
+        agregarComponente(panelBuscar3, BAnterior3, 2, 0, 1,1);
+
+        TxtPosition3 = new JTextField("0");
+        TxtPosition3.addActionListener(this);
+        agregarComponente(panelBuscar3, TxtPosition3, 3,0, 1,1);
+
+        BNext3 = new JButton(">");
+        BNext3.addActionListener(this);
+        agregarComponente(panelBuscar3, BNext3, 4, 0, 1, 1);
+
+        BUltimo3 = new JButton(">>");
+        BUltimo3.addActionListener(this);
+        agregarComponente(panelBuscar3, BUltimo3, 5, 0, 1, 1);
+
+        agregarComponente(VentanaModifA, panelBuscar3, 0,7,5,1);
+
         tabla3 = new JTable();
         tabla3.setModel(tabla1.getModel());
         JScrollPane scro = new JScrollPane(tabla3);
         scro.setPreferredSize(new Dimension(200,150));
-        agregarComponente(VentanaModifA, scro, 0,7, 5, 1);
+        agregarComponente(VentanaModifA, scro, 0,8, 5, 1);
 
         panel.add(VentanaModifA);
 
@@ -405,6 +455,31 @@ class GUI extends JFrame implements ActionListener{
 
             agregarComponente(VentanaConsulA, panelBusqueda, 0,1, 5, 1);
 
+        JPanel panelBuscar4 = new JPanel(new GridBagLayout());
+
+        BFirt4 = new JButton("<<");
+        BFirt4.addActionListener(this);
+        agregarComponente(panelBuscar4, BFirt4, 1, 0, 1, 1);
+
+
+        BAnterior4 = new JButton("<");
+        BAnterior4.addActionListener(this);
+        agregarComponente(panelBuscar4, BAnterior4, 2, 0, 1,1);
+
+        TxtPosition4 = new JTextField("0");
+        TxtPosition4.addActionListener(this);
+        agregarComponente(panelBuscar4, TxtPosition4, 3,0, 1,1);
+
+        BNext4 = new JButton(">");
+        BNext4.addActionListener(this);
+        agregarComponente(panelBuscar4, BNext4, 4, 0, 1, 1);
+
+        BUltimo4 = new JButton(">>");
+        BUltimo4.addActionListener(this);
+        agregarComponente(panelBuscar4, BUltimo4, 5, 0, 1, 1);
+
+        agregarComponente(VentanaConsulA, panelBuscar4, 0,2,5,1);
+
 
         tabla4 = new JTable(new DefaultTableModel(
                 new Object[][]{},
@@ -412,7 +487,7 @@ class GUI extends JFrame implements ActionListener{
         ));
             JScrollPane scrl = new JScrollPane(tabla4);
             scrl.setPreferredSize(new Dimension(200, 150));
-            agregarComponente(VentanaConsulA, scrl, 0,2, 5, 1);
+            agregarComponente(VentanaConsulA, scrl, 0,3, 5, 1);
 
         panel.add(VentanaConsulA);
 
@@ -459,17 +534,44 @@ class GUI extends JFrame implements ActionListener{
         frame.add(componente, gbc);
     }
 
-    protected int indexCarrera(String carrera){
-        if(carrera.toUpperCase().equals("SYSTEMAS")){
-            return 0;
-        }else if (carrera.toUpperCase().equals("CONTADURIA")){
-            return 1;
-        }else if (carrera.toUpperCase().equals("ADMINISTRACION DE EMPRESAS")){
-            return 2;
-        }else {
-            System.out.println("no se encontro coincidencia");
-            return 0;
+    private int cantList(){
+        boolean[] bool = {false, false, false, false, false, false};
+        ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+        return listAums.size();
+    }
+
+
+    private Alumno determineAcction(JTextField posicion, String var){
+        // var debe ser mayor o menor a 0, o tener "max" o "min" refiriendoce a un extemo de la lista
+        boolean[] bool = {false, false, false, false, false, false};
+        ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+        int cant = listAums.size();
+        int hayNum=0, valor=0;
+        Alumno al = null;
+        try {
+            hayNum = Integer.parseInt(posicion.getText());
+
+        } catch (NumberFormatException e) {
+            System.out.println("Error al sacar el munero maximo de alumnos");
         }
+        if (var.equalsIgnoreCase("max")){
+            al = listAums.get(hayNum-1);
+            return al;
+
+        }else if (var.equalsIgnoreCase("min")){
+            al = listAums.get(0);
+            return al;
+        }else{
+            try {
+                valor = Integer.parseInt(var);
+                al = listAums.get(valor-1);
+            } catch (NumberFormatException e) {
+                System.out.println("No se pudo obtener el index del alumno");
+            }
+
+        }
+
+        return al;
     }
 
 
@@ -577,6 +679,125 @@ class GUI extends JFrame implements ActionListener{
             txtSem.setText("");
             txtCar.setText("");
         }
+        else if (e.getSource() == BAnterior2) {
+            String var = String.valueOf(TxtPosition2.getText());
+            int  i = 0;
+            try {
+                i = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showConfirmDialog(null, "no se reconocio la posicion del alumno");
+            }
+            i--;
+            if (i <= 0){
+                int n = cantList();
+                TxtPosition2.setText(String.valueOf(n));
+                i=n;
+            }else TxtPosition2.setText(String.valueOf(i));
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            Alumno al = listAums.get(i-1);
+            if (i >0 && i<=listAums.size()){
+                txtNC2.setText(al.getNumControl());
+                txtNMS2.setText(al.getNombre());
+                txtApP2.setText(al.getPrimerAp());
+                txtAPM2.setText(al.getSegundoAp());
+                txtSem.setText(String.valueOf(al.getSemestre()));
+                txtCar.setText(al.getCarrera());
+            }
+        }
+        else if (e.getSource() == BFirt2){
+            TxtPosition2.setText(String.valueOf(1));
+            String var = TxtPosition2.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            int pos =0;
+            try {
+                pos = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                System.out.println("Error al intentar acceder al index de la lista de alumnos");
+            }
+            Alumno al = listAums.get(pos-1);
+            if (pos >0 && pos<=listAums.size()){
+                txtNC2.setText(al.getNumControl());
+                txtNMS2.setText(al.getNombre());
+                txtApP2.setText(al.getPrimerAp());
+                txtAPM2.setText(al.getSegundoAp());
+                txtSem.setText(String.valueOf(al.getSemestre()));
+                txtCar.setText(al.getCarrera());
+            }
+        }
+        else if(e.getSource() == BNext2){
+            String var = String.valueOf(TxtPosition2.getText());
+            int  i = 0;
+            try {
+                i = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showConfirmDialog(null, "no se reconocio la posicion del alumno");
+            }
+            i++;
+            int n = cantList();
+            if (i>n){
+                TxtPosition2.setText(String.valueOf(1));
+                i=1;
+            }
+            else TxtPosition2.setText(String.valueOf(i));
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+
+            Alumno al = listAums.get(i-1);
+            if (al.equals(null)) JOptionPane.showConfirmDialog(null, "nose encontro ningun alumno con el index de la lista indicado");
+            if (i >0 && i<=listAums.size()){
+                txtNC2.setText(al.getNumControl());
+                txtNMS2.setText(al.getNombre());
+                txtApP2.setText(al.getPrimerAp());
+                txtAPM2.setText(al.getSegundoAp());
+                txtSem.setText(String.valueOf(al.getSemestre()));
+                txtCar.setText(al.getCarrera());
+            }
+        }
+        else if (e.getSource() == BUltimo2){
+            int n = cantList();
+            TxtPosition2.setText(String.valueOf(n));
+            String var = TxtPosition2.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            int pos =0;
+            try {
+                pos = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                System.out.println("Error al intentar acceder al index de la lista de alumnos");
+            }
+            Alumno al = listAums.get(pos-1);
+            if (pos >0 && pos<=listAums.size()){
+                txtNC2.setText(al.getNumControl());
+                txtNMS2.setText(al.getNombre());
+                txtApP2.setText(al.getPrimerAp());
+                txtAPM2.setText(al.getSegundoAp());
+                txtSem.setText(String.valueOf(al.getSemestre()));
+                txtCar.setText(al.getCarrera());
+            }
+        } else if (e.getSource() == TxtPosition2) {
+            String var = TxtPosition2.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            Alumno al = null;
+            int pos =0;
+            try {
+                pos = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                System.out.println("Error al intentar acceder al index de la lista de alumnos");
+            }
+            if (pos <=0 || pos > listAums.size()) JOptionPane.showMessageDialog(null, "Error al intentar acceder al index de la lista de alumnos");
+            else al = listAums.get(pos-1);
+            if (pos >0 && pos<=listAums.size()){
+                txtNC2.setText(al.getNumControl());
+                txtNMS2.setText(al.getNombre());
+                txtApP2.setText(al.getPrimerAp());
+                txtAPM2.setText(al.getSegundoAp());
+                txtSem.setText(String.valueOf(al.getSemestre()));
+                txtCar.setText(al.getCarrera());
+            }
+        }
 
         // acciones Alumnos modificar
         if(e.getSource() == BBuscar3){
@@ -633,6 +854,125 @@ class GUI extends JFrame implements ActionListener{
             CBSemestre3.setSelectedIndex(0);
             CBCarrera3.setSelectedIndex(0);
         }
+
+        else if (e.getSource() == BAnterior3) {
+            String var = String.valueOf(TxtPosition3.getText());
+            int  i = 0;
+            try {
+                i = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showConfirmDialog(null, "no se reconocio la posicion del alumno");
+            }
+            i--;
+            if (i <= 0){
+                int n = cantList();
+                TxtPosition3.setText(String.valueOf(n));
+                i=1;
+            }else TxtPosition3.setText(String.valueOf(i));
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            Alumno al = listAums.get(i-1);
+            if (i >0 && i<=listAums.size()){
+                txtNC3.setText(al.getNumControl());
+                txtNC3.setEditable(false);
+                txtAPM3.setText(al.getSegundoAp());
+                txtApP3.setText(al.getPrimerAp());
+                txtNMS3.setText(al.getNombre());
+                CBSemestre3.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera3.setSelectedItem(String.valueOf(al.getCarrera()));
+            }
+        }
+        else if (e.getSource() == BFirt3){
+            TxtPosition3.setText(String.valueOf(1));
+            String var = TxtPosition3.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            Alumno al = listAums.get(0);
+                txtNC3.setText(al.getNumControl());
+                txtNC3.setEditable(false);
+                txtAPM3.setText(al.getSegundoAp());
+                txtApP3.setText(al.getPrimerAp());
+                txtNMS3.setText(al.getNombre());
+                CBSemestre3.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera3.setSelectedItem(String.valueOf(al.getCarrera()));
+
+        }
+        else if(e.getSource() == BNext3){
+            String var = String.valueOf(TxtPosition3.getText());
+            int  i = 0;
+            try {
+                i = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null, "no se reconocio la posicion del alumno");
+            }
+            i++;
+            int n = cantList();
+            if (i>n){
+                TxtPosition3.setText(String.valueOf(1));
+                i=1;
+            }
+            else TxtPosition3.setText(String.valueOf(i));
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+
+            Alumno al = listAums.get(i-1);
+            if (al.equals(null)) JOptionPane.showMessageDialog(null, "nose encontro ningun alumno con el index de la lista indicado");
+            if (i >0 && i<=listAums.size()){
+                txtNC3.setText(al.getNumControl());
+                txtNC3.setEditable(false);
+                txtAPM3.setText(al.getSegundoAp());
+                txtApP3.setText(al.getPrimerAp());
+                txtNMS3.setText(al.getNombre());
+                CBSemestre3.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera3.setSelectedItem(String.valueOf(al.getCarrera()));
+            }
+        }
+        else if (e.getSource() == BUltimo3){
+            int n = cantList();
+            TxtPosition3.setText(String.valueOf(n));
+            String var = TxtPosition3.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            int pos =0;
+            try {
+                pos = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                System.out.println("Error al intentar acceder al index de la lista de alumnos");
+            }
+            Alumno al = listAums.get(pos-1);
+            if (pos >0 && pos<=listAums.size()){
+                txtNC3.setText(al.getNumControl());
+                txtNC3.setEditable(false);
+                txtAPM3.setText(al.getSegundoAp());
+                txtApP3.setText(al.getPrimerAp());
+                txtNMS3.setText(al.getNombre());
+                CBSemestre3.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera3.setSelectedItem(String.valueOf(al.getCarrera()));
+            }
+        } else if (e.getSource() == TxtPosition3) {
+            String var = TxtPosition3.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            Alumno al = null;
+            int pos =0;
+            try {
+                pos = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                System.out.println("Error al intentar acceder al index de la lista de alumnos");
+            }
+            if (pos <=0 || pos > listAums.size()) JOptionPane.showMessageDialog(null, "Error al intentar acceder al index de la lista de alumnos");
+            else al = listAums.get(pos-1);
+            if (pos >0 && pos<=listAums.size()){
+                txtNC3.setText(al.getNumControl());
+                txtNC3.setEditable(false);
+                txtAPM3.setText(al.getSegundoAp());
+                txtApP3.setText(al.getPrimerAp());
+                txtNMS3.setText(al.getNombre());
+                CBSemestre3.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera3.setSelectedItem(String.valueOf(al.getCarrera()));
+            }
+        }
+
 
         // acciones alumnos consultas
 
@@ -802,8 +1142,134 @@ class GUI extends JFrame implements ActionListener{
             ArrayList<Alumno> listAlum = Adao.mostrarAlumnos(filtros, tipousqueda);
             actualizarDatos(tabla4, listAlum);
         }
+        else if (e.getSource() == BAnterior4) {
+            String var = String.valueOf(TxtPosition4.getText());
+            int  i = 0;
+            try {
+                i = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showConfirmDialog(null, "no se reconocio la posicion del alumno");
+            }
+            i--;
+            if (i <= 0){
+                int n = cantList();
+                TxtPosition4.setText(String.valueOf(n));
+                i=n;
+            }else TxtPosition4.setText(String.valueOf(i));
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            Alumno al = listAums.get(i-1);
+            if (i >0 && i<=listAums.size()){
+                txtNC4.setText(al.getNumControl());
+                txtAPM4.setText(al.getPrimerAp());
+                txtNMS4.setText(al.getNombre());
+                txtApP4.setText(al.getSegundoAp());
+                CBSemestre4.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera4.setSelectedIndex(selectCBCarrera(al.getCarrera()));
+            }
+        }
+        else if (e.getSource() == BFirt4){
+            TxtPosition4.setText(String.valueOf(1));
+            String var = TxtPosition4.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            int pos =0;
+            try {
+                pos = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                System.out.println("Error al intentar acceder al index de la lista de alumnos");
+            }
+            Alumno al = listAums.get(pos-1);
+            if (pos >0 && pos<=listAums.size()){
+                txtNC4.setText(al.getNumControl());
+                txtAPM4.setText(al.getPrimerAp());
+                txtNMS4.setText(al.getNombre());
+                txtApP4.setText(al.getSegundoAp());
+                CBSemestre4.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera4.setSelectedIndex(selectCBCarrera(al.getCarrera()));
+            }
+        }
+        else if(e.getSource() == BNext4){
+            String var = String.valueOf(TxtPosition4.getText());
+            int  i = 0;
+            try {
+                i = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showConfirmDialog(null, "no se reconocio la posicion del alumno");
+            }
+            i++;
+            int n = cantList();
+            if (i>n){
+                TxtPosition4.setText(String.valueOf(1));
+                i = 1;
+            }
+            else TxtPosition4.setText(String.valueOf(i));
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            Alumno al = listAums.get(i-1);
+            if (al.equals(null)) JOptionPane.showConfirmDialog(null, "nose encontro ningun alumno con el index de la lista indicado");
+            if (i >0 && i<=listAums.size()){
+                txtNC4.setText(al.getNumControl());
+                txtAPM4.setText(al.getPrimerAp());
+                txtNMS4.setText(al.getNombre());
+                txtApP4.setText(al.getSegundoAp());
+                CBSemestre4.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera4.setSelectedIndex(selectCBCarrera(al.getCarrera()));
+            }
+        }
+        else if (e.getSource() == BUltimo4){
+            int n = cantList();
+            TxtPosition4.setText(String.valueOf(n));
+            String var = TxtPosition4.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            int pos =0;
+            try {
+                pos = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                System.out.println("Error al intentar acceder al index de la lista de alumnos");
+            }
+            Alumno al = listAums.get(pos-1);
+            if (pos >0 && pos<=listAums.size()){
+                txtNC4.setText(al.getNumControl());
+                txtAPM4.setText(al.getPrimerAp());
+                txtNMS4.setText(al.getNombre());
+                txtApP4.setText(al.getSegundoAp());
+                CBSemestre4.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera4.setSelectedIndex(selectCBCarrera(al.getCarrera()));
+            }
+        } else if (e.getSource() == TxtPosition4) {
+            String var = TxtPosition4.getText();
+            boolean[] bool = {false, false, false, false, false, false};
+            ArrayList<Alumno> listAums = Adao.mostrarAlumnos("", bool);
+            Alumno al = null;
+            int pos =0;
+            try {
+                pos = Integer.parseInt(var);
+            } catch (NumberFormatException ex) {
+                System.out.println("Error al intentar acceder al index de la lista de alumnos");
+            }
+            if (pos <=0 || pos > listAums.size()) JOptionPane.showMessageDialog(null, "Error al intentar acceder al index de la lista de alumnos");
+            else al = listAums.get(pos-1);
+            if (pos >0 && pos<=listAums.size()){
+                txtNC4.setText(al.getNumControl());
+                txtAPM4.setText(al.getPrimerAp());
+                txtNMS4.setText(al.getNombre());
+                txtApP4.setText(al.getSegundoAp());
+                CBSemestre4.setSelectedIndex(al.getSemestre()-1);
+                CBCarrera4.setSelectedIndex(selectCBCarrera(al.getCarrera()));
+            }
+        }
 
     }
+
+    private int selectCBCarrera(String carrera){
+        if (carrera.equalsIgnoreCase("systemas")) return 0;
+        else if(carrera.equalsIgnoreCase("Contaduria")) return 1;
+        else if (carrera.equalsIgnoreCase("administracion de empresas")) return 2;
+            return 0;
+    }
+
     protected void actualizarDatos(JTable tabla, ArrayList<Alumno> listaFiltrada){
         DefaultTableModel model = (DefaultTableModel) tabla.getModel();
         model.setRowCount(0); // Limpiar datos anteriores
