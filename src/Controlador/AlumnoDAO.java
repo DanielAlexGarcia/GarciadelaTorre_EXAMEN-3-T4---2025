@@ -5,8 +5,6 @@ package Controlador;
 import ConexionBBD.ConexionBD;
 import Modelo.Alumno;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
